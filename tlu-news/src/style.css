@@ -1,0 +1,70 @@
+:root {
+    --space: 335px;
+}
+  
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+    thead th {
+        @apply text-base;
+    }
+}
+
+@layer components {
+    .background {
+        @apply bg-cover bg-center text-black min-h-0 pt-3 pb-5;
+        @apply flex flex-col justify-center items-start;
+        background-image: linear-gradient(rgba(17, 35, 131, 0.8), rgba(17, 35, 131, 0.8)), url('assets/background.png');
+    }
+    .header {
+        @apply flex-container-between;
+        @apply bg-white px-[--space] py-5;
+    }
+    .mode-box {
+        @apply flex flex-col items-end gap-4;
+    }
+    .space-box {
+        @apply px-[--space] w-full;
+    }
+    .nav {
+        @apply flex-container-left;
+        @apply bg-blue-700 text-white h-12;
+    }
+    .btn-nav {
+        @apply btn btn-ghost hover:bg-[#50bbff]
+    }
+    .text_menu {
+        @apply py-1 hover:text-blue-700 hover:italic text-sm font-medium
+    }
+    .main-content {
+        @apply space-box;
+        @apply flex flex-col gap-6;
+        @apply py-10;
+    }
+    .table-header {
+        @apply flex-container-between bg-[#0069d9] text-white px-12 py-5 rounded-t-md;
+    }
+    .table-content {
+        @apply flex flex-col px-12 py-5 rounded-b-md
+    }
+}
+
+@layer utilities {
+    .flex-container-between {
+        @apply w-full flex justify-between items-center;
+    }
+    .flex-container-left {
+        @apply w-full flex justify-start items-center;
+    } 
+    .flex-container-right {
+        @apply w-full flex justify-end items-center;
+    }
+}
+
+.roboto-regular {
+    font-family: "Roboto", sans-serif;
+    font-weight: 300;
+    font-style: ;
+  }
