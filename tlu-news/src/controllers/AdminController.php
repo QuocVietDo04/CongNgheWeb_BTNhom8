@@ -3,12 +3,12 @@ require_once 'src\models\Database.php'; // Kết nối Database
 require_once 'src\models\User.php';
 
 class AdminController {
-    private $user;
+    private $userModel;
 
     public function __construct() {
         $database = new Database();
         $db = $database->getConnection();
-        $this->user = new User($db); // Khởi tạo đối tượng User với kết nối cơ sở dữ liệu
+        $this->userModel = new User($db); // Khởi tạo đối tượng User với kết nối cơ sở dữ liệu
     }
 
     // Hàm hiển thị form đăng nhập
@@ -23,34 +23,6 @@ class AdminController {
         include_once 'src\views\admin\login.php';
     }
 
-    // Hàm xử lý đăng nhập
-    // public function postLogin() {
-    //     // Kiểm tra nếu form đã được submit
-    //     if (isset($_POST['username']) && isset($_POST['password'])) {
-    //         $username = $_POST['username'];
-    //         $password = $_POST['password'];
-
-    //         // Xác thực thông tin người dùng
-    //         if ($this->user->authenticate($username, $password)) {
-    //             // Kiểm tra vai trò
-    //             if ($_SESSION['role'] == 1) { // 1: Quản trị viên
-    //                 // Thiết lập vị trí hiện tại của admin
-    //                 $_SESSION['admin_page'] = 'home';  // Mặc định khi đăng nhập thành công
-    //                 header('Location: index.php?page=admin&action=dashboard');
-    //             } else {
-    //                 // Nếu không phải admin, quay về trang chính
-    //                 header('Location: index.php');
-    //             }
-    //             exit();
-    //         } else {
-    //             // Nếu đăng nhập thất bại, hiển thị lỗi
-    //             $_SESSION['error'] = 'Tên đăng nhập hoặc mật khẩu sai.';
-    //             header('Location: index.php?page=admin&action=login');
-    //             exit();
-    //         }
-    //     }
-    // }
-
     public function postLogin() {
         // Kiểm tra nếu form đã được submit
         if (isset($_POST['username']) && isset($_POST['password'])) {
@@ -58,7 +30,7 @@ class AdminController {
             $password = $_POST['password'];
 
             // Xác thực thông tin người dùng
-            if ($this->user->authenticate($username, $password)) {
+            if ($this->userModel->authenticate($username, $password)) {
                 header('Location: index.php');
                 exit();
             } else {
@@ -92,15 +64,16 @@ class AdminController {
         }
     }
 
-    // Hàm thay đổi vị trí trang admin
-    public function changePage($mode) {
-        // Kiểm tra xem giá trị trang có hợp lệ không
-        if ($mode == 'Chế độ chỉnh sửa') {
-            $_SESSION['admin_page'] = $mode;
-        } else {
-            // Nếu giá trị trang không hợp lệ, trả về giá trị mặc định 'home'
-            $_SESSION['admin_page'] = 'home';
-        }
-    }
+    // // Hàm thay đổi vị trí trang admin
+    // public function changePage($mode) {
+    //     if ($mode == 'Chế độ chỉnh sửa') {
+    //         header('Location: index.php?page=admin&action=dashboard');
+    //     } else {
+    //         header('Location: index.php');
+    //     }
+    // }
+
+    // Hàm hiển thị form thêm
+
 }
 ?>

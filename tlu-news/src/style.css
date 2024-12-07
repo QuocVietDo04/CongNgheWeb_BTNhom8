@@ -47,7 +47,10 @@
         @apply flex-container-between bg-[#0069d9] text-white px-12 py-5 rounded-t-md;
     }
     .table-content {
-        @apply flex flex-col px-12 py-5 rounded-b-md
+        @apply flex flex-col px-12 py-5;
+    }
+    .title {
+        @apply text-4xl text-left font-bold text-blue-700;
     }
 }
 

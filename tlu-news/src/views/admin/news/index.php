@@ -1,6 +1,7 @@
 <?php
 require_once 'src\views\admin\news\add.php';
 require_once 'src\views\admin\news\edit.php';
+require_once 'src\views\admin\news\delete.php';
 
 function getTable($newsList)
 {
@@ -36,8 +37,6 @@ function getTable($newsList)
                     </thead>
                     <!-- Table Body -->
                     <tbody>
-                        <?php $newsCounter = 1; // Initialize counter before the loop 
-                        ?>
                         <?php foreach ($newsList as $news): ?>
                             <tr class="hover:bg-gray-100">
                                 <th class="px-6 py-5"><?= $news['id']; ?></th>
@@ -50,30 +49,15 @@ function getTable($newsList)
                                 <td class="px-6 py-5"><?= $news['created_at']; ?></td>
                                 <td class="px-6 py-5">
                                     <div class="h-full flex justify-center item-center gap-2">
-                                        <button class="btn btn-sm btn-ghost hover:bg-amber-200 text-lg" onclick="edit<?= $newsCounter; ?>.showModal()">
+                                        <button class="btn btn-sm btn-ghost hover:bg-amber-200 text-lg" onclick="openEditForm(<?php echo htmlspecialchars(json_encode($news)); ?>)">
                                             <span class="iconify text-amber-500" data-icon="fa:pencil"></span>
                                         </button>
-                                        <button class="btn btn-sm btn-ghost hover:bg-red-200 text-lg" onclick="delete<?= $newsCounter; ?>.showModal()">
+                                        <button class="btn btn-sm btn-ghost hover:bg-red-200 text-lg" onclick="openDeleteAlert(<?php echo htmlspecialchars(json_encode($news)); ?>)">
                                             <span class="iconify text-red-500" data-icon="fa:trash"></span>
                                         </button>
                                     </div>
                                 </td>
                             </tr>
-
-                            <!-- Delete Modal for each news item -->
-                            <dialog id="delete<?= $newsCounter; ?>" class="modal modal-bottom sm:modal-middle">
-                                <div class="modal-box">
-                                    <h3 class="font-bold text-lg text-red-600">Xác nhận xóa tin tức</h3>
-                                    <p class="py-4">Bạn có chắc chắn muốn xóa tin tức "<strong><?= htmlspecialchars($news['title']); ?></strong>" không?</p>
-                                    <div class="modal-action">
-                                        <form method="dialog" class="flex gap-2">
-                                            <button class="btn btn-ghost">Hủy</button>
-                                            <a href="index.php?page=admin&action=delete&id=<?= $news['id']; ?>" class="btn btn-error">Xóa</a>
-                                        </form>
-                                    </div>
-                                </div>
-                            </dialog>
-
                         <?php endforeach; ?>
                     </tbody>
                 </table>
@@ -92,8 +76,33 @@ function getTable($newsList)
             </div>
         </div>
 
-        <!-- Modal Add News -->
+        <!-- Modal News -->
         <?= getAddForm(); ?>
+        <?= getEditForm(); ?>
+        <?= getDeleteAlert(); ?>
+
+        <!-- Script JavaScript -->
+        <script>
+            function openEditForm(news) {
+                const editForm = document.getElementById('edit');
+                document.getElementById('edit_id').value = news.id;
+                document.getElementById('edit_title').value = news.title;
+                document.getElementById('edit_content').value = news.content;
+                document.getElementById('edit_category_id').value = news.category_id;
+
+                // Hiển thị ảnh hiện tại
+                const currentImage = document.getElementById('current_image');
+                currentImage.src = 'uploads/' + news.image;
+                editForm.showModal();
+            }
+
+            function openDeleteAlert(news) {
+                const deleteAlert = document.getElementById('deleted');
+                document.getElementById('delete_id').value = news.id;
+                document.getElementById('delete_image').value = news.id;
+                deleteAlert.showModal();
+            }
+        </script>
 
     </div>
 <?php

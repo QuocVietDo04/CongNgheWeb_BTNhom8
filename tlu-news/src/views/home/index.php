@@ -44,8 +44,23 @@
                     <button type="submit" class="btn btn-sm bg-[#e5e7eb]">Tìm kiếm</button>
                 </form>
             </div>
-
         </div>
+
+        <!-- Phần danh mục -->
+        <div class="space-x-4 pb-5">
+            <?php foreach ($categories as $category): ?>
+                <?php
+                // Kiểm tra nếu danh mục hiện tại được chọn
+                $isActive = isset($_GET['category']) && $_GET['category'] == $category['id'] ? 'font-weight: 700' : '';
+                ?>
+                <a href="index.php?page=home&category=<?= $category['id']; ?>"
+                    class="text-gray-500 hover:text-blue-400" style="<?= $isActive; ?>"
+                    style="font-weight: 400">
+                    <?= htmlspecialchars($category['name']); ?>
+                </a>
+            <?php endforeach; ?>
+        </div>
+        <hr>
 
         <!-- Kiểm tra và hiển thị danh sách bài viết -->
         <?php
@@ -58,7 +73,23 @@
             }
         }
         ?>
+
+        <div class="flex justify-between items-center px-6 py-5 bg-gray-50">
+            <span class="text-sm text-gray-600">Showing 5 out of <?= count($newsList); ?> entries</span>
+            <div class="btn-group">
+                <button class="btn btn-sm btn-outline">Previous</button>
+                <button class="btn btn-sm btn-outline">1</button>
+                <button class="btn btn-sm btn-primary">2</button>
+                <button class="btn btn-sm btn-outline">3</button>
+                <button class="btn btn-sm btn-outline">Next</button>
+            </div>
+        </div>
     </main>
+
+    <?php
+    require_once 'src/views/partials/footer.php';
+    echo getFooter();
+    ?>
 
 </body>
 

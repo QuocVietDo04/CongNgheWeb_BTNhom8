@@ -45,6 +45,11 @@ $newsList = $news->getAllNews();
     echo getTable($newsList);
     ?>
 
+    <?php
+    require_once 'src/views/partials/footer.php';
+    echo getFooter();
+    ?>
+
 </body>
 
 </html>

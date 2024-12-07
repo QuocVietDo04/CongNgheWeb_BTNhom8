@@ -99,7 +99,10 @@ class News
     public function getNewsById($id)
     {
         try {
-            $query = "SELECT * FROM news WHERE id = :id";
+            $query = "SELECT n.*, c.name AS category_name 
+                      FROM news n 
+                      LEFT JOIN categories c ON n.category_id = c.id 
+                      WHERE n.id = :id";
             $stmt = $this->db->prepare($query);
 
             $stmt->bindParam(':id', $id);
@@ -128,6 +131,27 @@ class News
             return $stmt->fetchAll(PDO::FETCH_ASSOC); // Trả về danh sách bài viết phù hợp
         } catch (PDOException $exception) {
             error_log("Lỗi tìm kiếm bài viết: " . $exception->getMessage());
+            return [];
+        }
+    }
+
+    
+    // Lấy bài viết theo danh mục
+    public function getNewsByCategory($categoryId)
+    {
+        try {
+            $query = "SELECT n.*, c.name as category_name 
+                      FROM news n 
+                      JOIN categories c ON n.category_id = c.id 
+                      WHERE c.id = :categoryId 
+                      ORDER BY n.created_at DESC";
+            $stmt = $this->db->prepare($query);
+            $stmt->bindParam(':categoryId', $categoryId);
+            $stmt->execute();
+
+            return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        } catch (PDOException $exception) {
+            error_log("Lỗi lấy bài viết theo danh mục: " . $exception->getMessage());
             return [];
         }
     }

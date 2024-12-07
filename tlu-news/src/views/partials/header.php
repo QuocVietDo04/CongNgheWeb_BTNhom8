@@ -4,7 +4,9 @@ function getHeader()
     $headerHTML = '
     <header class="background">
         <div class="header px-[250px]">
-            <img src="./src/assets/logo.png" alt="Logo" />
+            <a href="index.php">
+                <img src="./src/assets/logo.png" alt="Logo" />
+            </a >
             <div class="mode-box">';
 
     if (!isset($_SESSION['role'])) {

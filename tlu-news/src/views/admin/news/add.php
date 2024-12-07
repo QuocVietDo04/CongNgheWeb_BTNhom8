@@ -10,7 +10,7 @@ function getAddForm()
                 <h3 class="text-2xl font-semibold text-gray-700">
                     Thêm tin tức mới
                 </h3>
-                <button type="button" class="font-extrabold text-lg text-gray-500 hover:text-gray-700" onclick="document.getElementById(\'add\').close()">
+                <button type="button" class="font-extrabold text-lg text-gray-500 hover:text-gray-700" onclick="add.close()">
                     ✕
                 </button>
             </div>
@@ -53,7 +53,7 @@ function getAddForm()
             <hr />
             <!-- Modal Footer -->
             <div class="flex-container-right px-6 space-x-3 modal-action">
-                <button type="button" class="btn btn-ghost hover:text-red-500 hover:bg-white" onclick="document.getElementById(\'add\').close()">
+                <button type="button" class="btn btn-ghost hover:text-red-500 hover:bg-white" onclick="add.close()">
                     Cancel
                 </button>
                 <button type="submit" class="btn btn-success text-white">Add</button>
